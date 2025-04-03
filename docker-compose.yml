@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  traefik:
+    image: traefik:v2.9
+    container_name: traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "8080:8080"  # Traefik Dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik.yml:/traefik.yml:ro
+    networks:
+      - web
+
+  api-reporte:
+    build: ./api-reporte
+    container_name: api-reporte
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api-reporte.rule=Host(`localhost`) && PathPrefix(`/reporte`)"
+      - "traefik.http.routers.api-reporte.entrypoints=web"
+      # Basic Auth middleware: user 'admin' with password 'password'
+      - "traefik.http.middlewares.api-reporte-basicauth.basicauth.users=admin:$$2a$$12$$TQl9hzq3VhMyVU8TBeI6hOd81GpQDHFOcWEAYlBIawA9G5vatdQHO"
+      - "traefik.http.routers.api-reporte.middlewares=api-reporte-basicauth"
+      - "traefik.http.services.api-reporte.loadbalancer.server.port=3000"
+    networks:
+      - web
+
+  cliente-uno:
+    build: ./cliente-app
+    container_name: cliente-uno
+    environment:
+      - CLIENT_ID=uno
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.cliente-uno.rule=Host(`localhost`) && PathPrefix(`/cliente/uno`)"
+      - "traefik.http.routers.cliente-uno.entrypoints=web"
+      - "traefik.http.middlewares.cliente-uno-strip.stripprefix.prefixes=/cliente/uno"
+      - "traefik.http.routers.cliente-uno.middlewares=cliente-uno-strip"
+      - "traefik.http.services.cliente-uno.loadbalancer.server.port=3000"
+    networks:
+      - web
+
+  cliente-dos:
+    build: ./cliente-app
+    container_name: cliente-dos
+    environment:
+      - CLIENT_ID=dos
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.cliente-dos.rule=Host(`localhost`) && PathPrefix(`/cliente/dos`)"
+      - "traefik.http.routers.cliente-dos.entrypoints=web"
+      - "traefik.http.middlewares.cliente-dos-strip.stripprefix.prefixes=/cliente/dos"
+      - "traefik.http.routers.cliente-dos.middlewares=cliente-dos-strip"
+      - "traefik.http.services.cliente-dos.loadbalancer.server.port=3000"
+    networks:
+      - web
+
+  panel:
+    image: nginx:alpine
+    container_name: panel
+    volumes:
+      - ./panel/index.html:/usr/share/nginx/html/index.html:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.panel.rule=Host(`localhost`) && PathPrefix(`/panel`)"
+      - "traefik.http.routers.panel.entrypoints=web"
+      - "traefik.http.middlewares.panel-strip.stripprefix.prefixes=/panel"
+      - "traefik.http.routers.panel.middlewares=panel-strip"
+      - "traefik.http.services.panel.loadbalancer.server.port=80"
+    networks:
+      - web
+
+networks:
+  web:
+    driver: bridge
