@@ -19,8 +19,8 @@ graph TD
         AR["api-reporte (Express.js)"]
         LC["logger-central (Express.js)"]
         TD["Traefik Dashboard"]
-        R((RabbitMQ)) %% Double parens syntax handles text ok
-        RMUI["RabbitMQ UI (:15672)"]
+        R((RabbitMQ))
+        RMUI["RabbitMQ UI (:15672)"
         Note1["Log a consola"]
         %% == Now define the links ==  (Comment moved before the block)
         T --|"/cliente/uno"|--> CU
