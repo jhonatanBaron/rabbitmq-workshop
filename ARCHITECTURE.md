@@ -29,7 +29,6 @@ graph TD
         %% LC -- "(Log a consola)"  <- This was an incomplete edge, commented out. Add info to node if needed.
         LC --- Note1(Log a consola) %% Example: Linking LC to a separate note node instead
         style Note1 fill:#fff,stroke:#fff,stroke-width:0px %% Optional: make note invisible if just for layout/info
-
     end
 
     U --|":15672"|--> RMUI
