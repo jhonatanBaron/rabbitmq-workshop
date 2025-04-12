@@ -4,11 +4,11 @@ Este diagrama ilustra la arquitectura de la aplicación, mostrando cómo los ser
 
 ```mermaid
 graph TD
-    subgraph "Navegador del Usuario"
+    subgraph Navegador_del_Usuario  // Simplified title (removed quotes and spaces)
         U[Usuario] --> T{Traefik Reverse Proxy}
     end
 
-    subgraph "Red Docker (web)"
+    subgraph Red_Docker_web  // Simplified title (removed quotes, spaces, parentheses)
         T --|"/cliente/uno"|--> CU[cliente-uno (Express.js)]
         T --|"/cliente/dos"|--> CD[cliente-dos (Express.js)]
         T --|"/panel"|--> P[panel (Express.js)]
