@@ -14,5 +14,5 @@ ejercicio-3/
 ├── traefik.yml
 ├── api-registro/        # contador
 ├── cliente-app/         # app sencilla
-└── monitor/             # (actualmente es un mock no-funcional)
+└── panel/             # (actualmente es un mock no-funcional, a mejorar despues)
 ```
