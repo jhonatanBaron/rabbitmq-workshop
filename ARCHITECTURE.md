@@ -6,21 +6,21 @@ Este diagrama ilustra la arquitectura de la aplicación, mostrando cómo los ser
 graph TD
     %% Subgraph for the user's browser interaction
     subgraph "Navegador del Usuario"
-        U[Usuario] --> T{Traefik Reverse Proxy}
+        U["Usuario"] --> T{"Traefik Reverse Proxy"} %% Use quotes for text
     end
 
     %% Subgraph for the Docker network components
     subgraph "Red Docker (web)"
-        %% == Define nodes used in this subgraph first ==
-        CU[cliente-uno (Express.js)]
-        CD[cliente-dos (Express.js)]
-        P[panel (Express.js)]
-        AR[api-reporte (Express.js)]
-        LC[logger-central (Express.js)]
-        TD[Traefik Dashboard]
-        R((RabbitMQ))
-        RMUI[RabbitMQ UI (:15672)]
-        Note1(Log a consola)
+        %% == Define nodes used in this subgraph first (using quotes for text) ==
+        CU["cliente-uno (Express.js)"]
+        CD["cliente-dos (Express.js)"]
+        P["panel (Express.js)"]
+        AR["api-reporte (Express.js)"]
+        LC["logger-central (Express.js)"]
+        TD["Traefik Dashboard"]
+        R((RabbitMQ)) %% Double parens syntax usually handles text ok, no quotes needed
+        RMUI["RabbitMQ UI (:15672)"]
+        Note1["Log a consola"] %% Quote the text for consistency
 
         %% == Now define the links ==
         T --|"/cliente/uno"|--> CU
