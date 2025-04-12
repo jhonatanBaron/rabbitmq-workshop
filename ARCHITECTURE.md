@@ -11,15 +11,27 @@ graph TD
 
     %% Subgraph for the Docker network components
     subgraph "Red Docker (web)"
-        T --|"/cliente/uno"|--> CU[cliente-uno (Express.js)]
-        T --|"/cliente/dos"|--> CD[cliente-dos (Express.js)]
-        T --|"/panel"|--> P[panel (Express.js)]
-        T --|"/reporte"|--> AR[api-reporte (Express.js)]
-        T --|"/reporte/recent"|--> AR
-        T --|"/logs"|--> LC[logger-central (Express.js)]
-        T --|":8080"|--> TD[Traefik Dashboard]
+        %% == Define nodes used in this subgraph first ==
+        CU[cliente-uno (Express.js)]
+        CD[cliente-dos (Express.js)]
+        P[panel (Express.js)]
+        AR[api-reporte (Express.js)]
+        LC[logger-central (Express.js)]
+        TD[Traefik Dashboard]
+        R((RabbitMQ))
+        RMUI[RabbitMQ UI (:15672)]
+        Note1(Log a consola)
 
-        CU --|"Publica evento (JSON)"|--> R((RabbitMQ))
+        %% == Now define the links ==
+        T --|"/cliente/uno"|--> CU
+        T --|"/cliente/dos"|--> CD
+        T --|"/panel"|--> P
+        T --|"/reporte"|--> AR
+        T --|"/reporte/recent"|--> AR
+        T --|"/logs"|--> LC
+        T --|":8080"|--> TD
+
+        CU --|"Publica evento (JSON)"|--> R
         CD --|"Publica evento (JSON)"|--> R
 
         R --|"Consume evento"|--> AR
@@ -27,10 +39,10 @@ graph TD
         P --|"GET /reporte (Auth)"|--> AR
         P --|"GET /reporte/recent (Auth)"|--> AR
 
-        R -.-> RMUI[RabbitMQ UI (:15672)]
+        R -.-> RMUI
 
         %% LC -- "(Log a consola)"  <- This was an incomplete edge, commented out. Add info to node if needed.
-        LC --- Note1(Log a consola) %% Example: Linking LC to a separate note node instead
+        LC --- Note1
         style Note1 fill:#fff,stroke:#fff,stroke-width:0px %% Optional: make note invisible if just for layout/info
     end
 
