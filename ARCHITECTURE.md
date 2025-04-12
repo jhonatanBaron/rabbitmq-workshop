@@ -6,7 +6,8 @@ Este diagrama ilustra la arquitectura de la aplicación, mostrando cómo los ser
 graph TD
     %% Subgraph for the user's browser interaction
     subgraph "Navegador del Usuario"
-        U["Usuario"] --> T{"Traefik Reverse Proxy"} %% Use quotes for text
+        %% Define nodes and link. Node text uses quotes for reliability.
+        U["Usuario"] --> T{"Traefik Reverse Proxy"}
     end
 
     %% Subgraph for the Docker network components
@@ -18,9 +19,11 @@ graph TD
         AR["api-reporte (Express.js)"]
         LC["logger-central (Express.js)"]
         TD["Traefik Dashboard"]
-        R((RabbitMQ)) %% Double parens syntax usually handles text ok, no quotes needed
+        %% Double parens syntax usually handles text ok
+        R((RabbitMQ))
         RMUI["RabbitMQ UI (:15672)"]
-        Note1["Log a consola"] %% Quote the text for consistency
+         %% Quote the text for consistency
+        Note1["Log a consola"]
 
         %% == Now define the links ==
         T --|"/cliente/uno"|--> CU
@@ -41,9 +44,11 @@ graph TD
 
         R -.-> RMUI
 
-        %% LC -- "(Log a consola)"  <- This was an incomplete edge, commented out. Add info to node if needed.
+        %% Example: Linking LC to a separate note node instead
+        %% LC -- "(Log a consola)"  <- This was an incomplete edge, commented out.
         LC --- Note1
-        style Note1 fill:#fff,stroke:#fff,stroke-width:0px %% Optional: make note invisible if just for layout/info
+         %% Optional: make note invisible if just for layout/info
+        style Note1 fill:#fff,stroke:#fff,stroke-width:0px
     end
 
     %% Link from user directly to RabbitMQ UI
