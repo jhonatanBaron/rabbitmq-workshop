@@ -6,7 +6,7 @@ Los servicios web o "apps" y sus rutas fueron editados para funcionar con las ru
 
 El sistema tambien tiene una ruta `/panel` que retorna datos en html, presenta una página básica y presenta acceso a los reportes.
 
-la estructura en un proyecto basico con treafik:
+la estructura consiste en un proyecto basico con treafik:
 
 ```
 ejercicio-3/
