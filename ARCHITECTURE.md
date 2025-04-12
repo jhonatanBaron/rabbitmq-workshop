@@ -19,35 +19,27 @@ graph TD
         AR["api-reporte (Express.js)"]
         LC["logger-central (Express.js)"]
         TD["Traefik Dashboard"]
-        %% Double parens syntax usually handles text ok
-        R((RabbitMQ))
+        R((RabbitMQ)) %% Double parens syntax handles text ok
         RMUI["RabbitMQ UI (:15672)"]
-         %% Quote the text for consistency
-        Note1["Log a consola"]
-
-        %% == Now define the links ==
-        T --|"/cliente/uno"|--> CU
+        Note1["Log a consola"] %% Quote the text for consistency
+        %% == Now define the links ==  (Comment moved before the block)
+        T --|"/cliente/uno"|--> CU  %% ENSURE NO blank line or other comments immediately before this line
         T --|"/cliente/dos"|--> CD
         T --|"/panel"|--> P
         T --|"/reporte"|--> AR
         T --|"/reporte/recent"|--> AR
         T --|"/logs"|--> LC
         T --|":8080"|--> TD
-
         CU --|"Publica evento (JSON)"|--> R
         CD --|"Publica evento (JSON)"|--> R
-
         R --|"Consume evento"|--> AR
-
         P --|"GET /reporte (Auth)"|--> AR
         P --|"GET /reporte/recent (Auth)"|--> AR
-
         R -.-> RMUI
-
         %% Example: Linking LC to a separate note node instead
         %% LC -- "(Log a consola)"  <- This was an incomplete edge, commented out.
         LC --- Note1
-         %% Optional: make note invisible if just for layout/info
+        %% Optional: make note invisible if just for layout/info
         style Note1 fill:#fff,stroke:#fff,stroke-width:0px
     end
 
