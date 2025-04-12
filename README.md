@@ -12,7 +12,7 @@ la estructura consiste en un proyecto basico con treafik:
 ejercicio-3/
 ├── docker-compose.yml
 ├── traefik.yml
-├── api-registro/        # contador
-├── cliente-app/         # app sencilla
-└── panel/             # (actualmente es un mock no-funcional, a mejorar despues)
+├── api-registro/        # contador simple (en un archivo `server.js`)
+├── cliente-app/         # app sencilla (en un archivo `server.js`)
+└── panel/             # (actualmente es un mock no-funcional, a mejorar despues) index.html
 ```
