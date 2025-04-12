@@ -4,11 +4,13 @@ Este diagrama ilustra la arquitectura de la aplicación, mostrando cómo los ser
 
 ```mermaid
 graph TD
-    subgraph Navegador_del_Usuario  // Simplified title (removed quotes and spaces)
+    %% Subgraph for the user's browser interaction
+    subgraph "Navegador del Usuario"
         U[Usuario] --> T{Traefik Reverse Proxy}
     end
 
-    subgraph Red_Docker_web  // Simplified title (removed quotes, spaces, parentheses)
+    %% Subgraph for the Docker network components
+    subgraph "Red Docker (web)"
         T --|"/cliente/uno"|--> CU[cliente-uno (Express.js)]
         T --|"/cliente/dos"|--> CD[cliente-dos (Express.js)]
         T --|"/panel"|--> P[panel (Express.js)]
@@ -26,11 +28,13 @@ graph TD
         P --|"GET /reporte/recent (Auth)"|--> AR
 
         R -.-> RMUI[RabbitMQ UI (:15672)]
+
         %% LC -- "(Log a consola)"  <- This was an incomplete edge, commented out. Add info to node if needed.
         LC --- Note1(Log a consola) %% Example: Linking LC to a separate note node instead
         style Note1 fill:#fff,stroke:#fff,stroke-width:0px %% Optional: make note invisible if just for layout/info
     end
 
+    %% Link from user directly to RabbitMQ UI
     U --|":15672"|--> RMUI
 ```
 
