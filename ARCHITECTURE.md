@@ -21,9 +21,9 @@ graph TD
         TD["Traefik Dashboard"]
         R((RabbitMQ)) %% Double parens syntax handles text ok
         RMUI["RabbitMQ UI (:15672)"]
-        Note1["Log a consola"] %% Quote the text for consistency
+        Note1["Log a consola"]
         %% == Now define the links ==  (Comment moved before the block)
-        T --|"/cliente/uno"|--> CU  %% ENSURE NO blank line or other comments immediately before this line
+        T --|"/cliente/uno"|--> CU
         T --|"/cliente/dos"|--> CD
         T --|"/panel"|--> P
         T --|"/reporte"|--> AR
