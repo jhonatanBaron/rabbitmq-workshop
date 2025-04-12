@@ -35,6 +35,7 @@ graph TD
     U --|":15672"|--> RMUI
 ```
 
+
 ## Flujo de Datos:
 
 1.  **Acceso Cliente:** El usuario accede a `http://localhost/cliente/uno` o `http://localhost/cliente/dos`.
