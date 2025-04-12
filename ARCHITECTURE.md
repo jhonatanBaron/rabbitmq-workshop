@@ -9,24 +9,24 @@ graph TD
     end
 
     subgraph "Red Docker (web)"
-        T --|"/cliente/uno"|--> CU["cliente-uno (Express.js)"]
-        T --|"/cliente/dos"|--> CD["cliente-dos (Express.js)"]
-        T --|"/panel"|--> P["panel (Express.js)"]
-        T --|"/reporte"|--> AR["api-reporte (Express.js)"]
-        T --|"/reporte/recent"|--> AR
-        T --|"/logs"|--> LC["logger-central (Express.js)"]
-        T --|":8080"|--> TD["Traefik Dashboard"]
-        CU --|"Publica evento (JSON)"|--> R((RabbitMQ))
-        CD --|"Publica evento (JSON)"|--> R
-        R --|"Consume evento"|--> AR
-        P --|"GET /reporte (Auth)"|--> AR
-        P --|"GET /reporte/recent (Auth)"|--> AR
+        T -- "/cliente/uno" --> CU["cliente-uno (Express.js)"]
+        T -- "/cliente/dos" --> CD["cliente-dos (Express.js)"]
+        T -- "/panel" --> P["panel (Express.js)"]
+        T -- "/reporte" --> AR["api-reporte (Express.js)"]
+        T -- "/reporte/recent" --> AR
+        T -- "/logs" --> LC["logger-central (Express.js)"]
+        T -- ":8080" --> TD["Traefik Dashboard"]
+        CU -- "Publica evento (JSON)" --> R((RabbitMQ))
+        CD -- "Publica evento (JSON)" --> R
+        R -- "Consume evento" --> AR
+        P -- "GET /reporte (Auth)" --> AR
+        P -- "GET /reporte/recent (Auth)" --> AR
         R -.-> RMUI["RabbitMQ UI (:15672)"]
         LC --- Note1["Log a consola"]
         style Note1 fill:#fff,stroke:#fff,stroke-width:0px
     end
 
-    U --|":15672"|--> RMUI
+    U -- ":15672" --> RMUI
 ```
 
 
